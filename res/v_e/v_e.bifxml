@@ -1,0 +1,113 @@
+<?xml version="1.0" ?>
+
+<BIF VERSION="0.3">
+<NETWORK>
+
+<!-- Variables -->
+<VARIABLE TYPE="decision">
+	<NAME>Expensive_E</NAME>
+	<PROPERTY></PROPERTY>
+	<OUTCOME>No</OUTCOME>
+	<OUTCOME>Yes</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="decision">
+	<NAME>ValueRelativeToPrice</NAME>
+	<PROPERTY></PROPERTY>
+	<OUTCOME>Cheap</OUTCOME>
+	<OUTCOME>FairValue</OUTCOME>
+	<OUTCOME>Expensive</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>FutureSharePerformance</NAME>
+	<PROPERTY></PROPERTY>
+	<OUTCOME>Positive</OUTCOME>
+	<OUTCOME>Stagnant</OUTCOME>
+	<OUTCOME>Negative</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>PERelative_ShareMarket</NAME>
+	<PROPERTY></PROPERTY>
+	<OUTCOME>Cheap</OUTCOME>
+	<OUTCOME>FairValue</OUTCOME>
+	<OUTCOME>Expensive</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>PERelative_ShareSector</NAME>
+	<PROPERTY></PROPERTY>
+	<OUTCOME>Cheap</OUTCOME>
+	<OUTCOME>FairValue</OUTCOME>
+	<OUTCOME>Expensive</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>ForwardPE_CurrentVsHistory</NAME>
+	<PROPERTY></PROPERTY>
+	<OUTCOME>Cheap</OUTCOME>
+	<OUTCOME>FairValue</OUTCOME>
+	<OUTCOME>Expensive</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="utility">
+	<NAME>Expensive_Utility</NAME>
+	<PROPERTY></PROPERTY>
+	<OUTCOME>0</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="utility">
+	<NAME>VRP_Utility</NAME>
+	<PROPERTY></PROPERTY>
+	<OUTCOME>0</OUTCOME>
+</VARIABLE>
+
+<!-- Probability distributions -->
+<DEFINITION>
+	<FOR>Expensive_E</FOR>
+	<GIVEN>PERelative_ShareSector</GIVEN>
+	<GIVEN>PERelative_ShareMarket</GIVEN>
+</DEFINITION>
+<DEFINITION>
+	<FOR>ValueRelativeToPrice</FOR>
+	<GIVEN>Expensive_E</GIVEN>
+	<GIVEN>ForwardPE_CurrentVsHistory</GIVEN>
+	<GIVEN>PERelative_ShareSector</GIVEN>
+	<GIVEN>PERelative_ShareMarket</GIVEN>
+</DEFINITION>
+<DEFINITION>
+	<FOR>FutureSharePerformance</FOR>
+	<TABLE>0.44444 0.14815 0.40741 </TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>PERelative_ShareMarket</FOR>
+	<GIVEN>FutureSharePerformance</GIVEN>
+	<TABLE>0.7 0.2 0.1 0.25 0.5 0.25 0.1 0.2 0.7 </TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>PERelative_ShareSector</FOR>
+	<GIVEN>FutureSharePerformance</GIVEN>
+	<TABLE>0.7 0.2 0.1 0.25 0.5 0.25 0.1 0.2 0.7 </TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>ForwardPE_CurrentVsHistory</FOR>
+	<GIVEN>Expensive_E</GIVEN>
+	<GIVEN>FutureSharePerformance</GIVEN>
+	<TABLE>0.7 0.2 0.1 0.15 0.7 0.15 0.2 0.6 0.2 0.2 0.3 0.5 0.2 0.5 0.3 0.1 0.17 0.75 </TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Expensive_Utility</FOR>
+	<GIVEN>Expensive_E</GIVEN>
+	<GIVEN>FutureSharePerformance</GIVEN>
+	<TABLE>350 -150 -200 -300 150 200 </TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>VRP_Utility</FOR>
+	<GIVEN>FutureSharePerformance</GIVEN>
+	<GIVEN>ValueRelativeToPrice</GIVEN>
+	<TABLE>200 -75 -200 100 0 -75 -100 100 150 </TABLE>
+</DEFINITION>
+
+</NETWORK>
+</BIF>
